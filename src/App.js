@@ -1,9 +1,19 @@
 import { Component } from 'react';
-import './App.css';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './components/MenuComponent'
+import './App.css';
+import { PALETAS } from './shared/paletas';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      paletas: PALETAS
+    };
+  }
+
   render() {
     return(
       <div>
@@ -12,7 +22,7 @@ class App extends Component {
             <NavbarBrand href="/">Pauletta</NavbarBrand>
           </div>
         </Navbar>
-        <Menu />
+        <Menu paletas={this.state.paletas}/>
       </div>
     );
   }
