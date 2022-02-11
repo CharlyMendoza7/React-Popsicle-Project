@@ -36,7 +36,7 @@ class PaletaDetail extends Component {
                             {comment.comment}
                         </li>
                         <li className="mb-4">
-                            --{comment.author}, {comment.date}
+                            --{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
                         </li>
                     </div>
                 );
@@ -58,12 +58,14 @@ class PaletaDetail extends Component {
     }
     render() {
         return(
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderPaleta(this.props.paleta)}
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderComments(this.props.paleta)}
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderPaleta(this.props.paleta)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderComments(this.props.paleta)}
+                    </div>
                 </div>
             </div>
         );
