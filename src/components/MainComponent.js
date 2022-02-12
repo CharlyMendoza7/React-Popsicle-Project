@@ -1,8 +1,9 @@
-import { Component } from 'react';
+import { React, Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
-import PaletaDetail from './PaletaDetail';
 import { PALETAS } from '../shared/paletas';
+import PaletaDetail from './PaletaDetail';
+
 
 class Main extends Component {
 
@@ -30,7 +31,8 @@ class Main extends Component {
             <NavbarBrand href="/">Pauletta</NavbarBrand>
           </div>
         </Navbar>
-        <Menu paletas={this.state.paletas} onClick={(paletaId) => this.onPaletaSelect(paletaId)}/>
+        <Menu paletas={this.state.paletas} 
+            onClick={(paletaId) => this.onPaletaSelect(paletaId)}/>
         <PaletaDetail paleta={this.state.paletas.filter(paleta => paleta.id === this.state.selectedPaleta)[0]} />
       </div>
     );
