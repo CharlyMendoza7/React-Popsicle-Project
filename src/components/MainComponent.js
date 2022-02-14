@@ -1,8 +1,11 @@
 import { React, Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import { PALETAS } from '../shared/paletas';
 import PaletaDetail from './PaletaDetail';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Home from './HomeComponent';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 
 class Main extends Component {
@@ -11,29 +14,28 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      paletas: PALETAS,
-      selectedPaleta: null
+      paletas: PALETAS
     };
   }
 
-  onPaletaSelect(paletaId) {
-    this.setState({
-        selectedPaleta: paletaId
-    });
-  }
 
 
   render() {
+
+    const HomePage = () => {
+      return(
+        <Home />
+      );
+    }
     return(
       <div>
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Pauletta</NavbarBrand>
-          </div>
-        </Navbar>
-        <Menu paletas={this.state.paletas} 
-            onClick={(paletaId) => this.onPaletaSelect(paletaId)}/>
-        <PaletaDetail paleta={this.state.paletas.filter(paleta => paleta.id === this.state.selectedPaleta)[0]} />
+        <Header />
+        <Switch>
+          <Route path='/home' component={HomePage} />
+          <Route exact path='/menu' component={() => <Menu paletas={this.state.paletas} />} />
+          <Redirect to='/home' />
+        </Switch>
+        <Footer />
       </div>
     );
   }
