@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
+import React from 'react'
+import { Card, CardImg, CardTitle, CardText, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 function RenderPaleta({paleta}) {
@@ -59,12 +60,22 @@ const PaletaDetail = (props) => {
         return(
             <div className="container">
                 <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.paleta.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.paleta.name}</h3>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         <RenderPaleta paleta={props.paleta} />
                     </div>
                     
-                    <div className="col-12 col-md-5 m-1">
-                       <RenderComments comments={props.paleta.comments} />
+                    <div className="col-12 col-md-5 m-1">                       
+                       <RenderComments comments={props.comments} />
                     </div>
                     
                 </div>
@@ -74,7 +85,6 @@ const PaletaDetail = (props) => {
     else {
         return(
             <div>
-                {console.log(props)}
             </div>
         );
     }    

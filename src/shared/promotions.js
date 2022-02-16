@@ -2,7 +2,7 @@ export const PROMOTIONS = [
     {
       id: 0,
       name: "Valentine's Day",
-      image: '/assets/images/valentines.jpg',
+      image: '/assets/images/valentines.png',
       label: 'New',
       price: '9.99',
       featured: true,

@@ -26,8 +26,14 @@ class Main extends Component {
   }
 
 
-
   render() {
+
+    const PaletaWithId = ({match}) => {
+      return(
+        <PaletaDetail paleta={this.state.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
+        comments={this.state.comments.filter(comment => comment.paletaId === parseInt(match.params.paletaId,10))} />
+      );
+    }
 
     const HomePage = () => {
       return(
@@ -43,6 +49,7 @@ class Main extends Component {
         <Switch>
           <Route path='/home' component={HomePage} />
           <Route exact path='/menu' component={() => <Menu paletas={this.state.paletas} />} />
+          <Route path='/menu/:paletaId' component={PaletaWithId} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to='/home' />
         </Switch>

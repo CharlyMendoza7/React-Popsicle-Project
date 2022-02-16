@@ -2,7 +2,7 @@ export const LEADERS = [
     {
       id: 0,
       name: 'Carlos Menodza',
-      image: '/assets/images/carlos.jpg',
+      image: '/assets/images/alberto.png',
       designation: 'Chief Executive Officer',
       abbr: 'CEO',
       featured: false,
@@ -11,7 +11,7 @@ export const LEADERS = [
     {
       id: 1,
       name: 'Bertha Robles',
-      image: '/assets/images/bertha.jpg',
+      image: '/assets/images/bertha.png',
       designation: 'Executive Chef',
       abbr: 'EC',
       featured: true,

@@ -3,7 +3,7 @@ export const PALETAS =
         {
         id: 0,
         name:'Chocotorro',
-        image: 'assets/images/CHOCOTORRO.jpg',
+        image: '/assets/images/CHOCOTORRO.png',
         category: 'pink chocolate',
         label:'Hot',
         price:'1.45',
@@ -11,8 +11,9 @@ export const PALETAS =
         description:'A unique combination of Chocotorro (pancake) chocolate ice cream, topped with pink chocolate and chocolate grit'
         },
         {
+        id: 1,
         name:'Dalmata',
-        image: 'assets/images/DALMATA.jpg',
+        image: '/assets/images/DALMATA.png',
         category: 'white chocolate',
         label:'',
         price:'1.45',
@@ -20,8 +21,9 @@ export const PALETAS =
         description:'A unique combination of Dalmata (pancake) chocolate ice cream, topped with white chocolate and chocolate chips'
         },
         {
+        id: 2,
         name:'Kinder Delice',
-        image: 'assets/images/KINDERDELICE.jpg',
+        image: '/assets/images/KINDER DELICE.png',
         category: 'normal chocolate',
         label:'New',
         price:'1.45',
@@ -31,7 +33,7 @@ export const PALETAS =
         {
         id: 3,
         name:'Nutella',
-        image: 'assets/images/NUTELLA.jpg',
+        image: '/assets/images/NUTELLA.png',
         category: 'dessert',
         label:'',
         price:'1.45',

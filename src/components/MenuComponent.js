@@ -1,13 +1,16 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-function RenderMenuItem ({paleta, onClick}) {
+function RenderMenuItem ({paleta}) {
     return(
         <Card>
-            <CardImg width="100%" src={paleta.image} alt={paleta.name} />
-            <CardImgOverlay>  
-                 <CardTitle>{paleta.name}</CardTitle>
-            </CardImgOverlay>
+            <Link to={`/menu/${paleta.id}`}>
+                <CardImg width="300px" height="300px" src={paleta.image} alt={paleta.name} />
+                <CardImgOverlay>  
+                    <CardTitle>{paleta.name}</CardTitle>
+                </CardImgOverlay>
+            </Link>
         </Card>
     );
 }
@@ -24,6 +27,16 @@ const Menu = (props) => {
 
     return(
         <div className="container">
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Menu</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>Menu</h3>
+                    <hr />
+                </div>
+            </div>
             <div className="row">
                 {menu}
             </div>
