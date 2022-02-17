@@ -2,7 +2,7 @@ export const LEADERS = [
     {
       id: 0,
       name: 'Carlos Menodza',
-      image: '/assets/images/alberto.png',
+      image: '/assets/images/carlos.png',
       designation: 'Chief Executive Officer',
       abbr: 'CEO',
       featured: false,

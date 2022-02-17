@@ -9,6 +9,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 
@@ -49,6 +50,7 @@ class Main extends Component {
         <Switch>
           <Route path='/home' component={HomePage} />
           <Route exact path='/menu' component={() => <Menu paletas={this.state.paletas} />} />
+          <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
           <Route path='/menu/:paletaId' component={PaletaWithId} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to='/home' />
