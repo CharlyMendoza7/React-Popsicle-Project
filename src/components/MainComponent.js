@@ -1,16 +1,22 @@
 import { React, Component } from 'react';
 import Menu from './MenuComponent';
-import { PALETAS } from '../shared/paletas';
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
 import PaletaDetail from './PaletaDetail';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    paletas: state.paletas,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  }
+}
 
 
 class Main extends Component {
@@ -18,12 +24,6 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      paletas: PALETAS,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS
-    };
   }
 
 
@@ -31,16 +31,16 @@ class Main extends Component {
 
     const PaletaWithId = ({match}) => {
       return(
-        <PaletaDetail paleta={this.state.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
-        comments={this.state.comments.filter(comment => comment.paletaId === parseInt(match.params.paletaId,10))} />
+        <PaletaDetail paleta={this.props.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
+        comments={this.props.comments.filter(comment => comment.paletaId === parseInt(match.params.paletaId,10))} />
       );
     }
 
     const HomePage = () => {
       return(
-        <Home paleta={this.state.paletas.filter(paleta => paleta.featured)[0]}
-          promotion={this.state.promotions.filter(promotion => promotion.featured)[0]}
-          leader={this.state.leaders.filter(leader => leader.featured)[0]}
+        <Home paleta={this.props.paletas.filter(paleta => paleta.featured)[0]}
+          promotion={this.props.promotions.filter(promotion => promotion.featured)[0]}
+          leader={this.props.leaders.filter(leader => leader.featured)[0]}
         />
       );
     }
@@ -49,8 +49,8 @@ class Main extends Component {
         <Header />
         <Switch>
           <Route path='/home' component={HomePage} />
-          <Route exact path='/menu' component={() => <Menu paletas={this.state.paletas} />} />
-          <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
+          <Route exact path='/menu' component={() => <Menu paletas={this.props.paletas} />} />
+          <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
           <Route path='/menu/:paletaId' component={PaletaWithId} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to='/home' />
@@ -61,4 +61,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, Row, FormFeedback } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col,  FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Contact extends Component {
@@ -55,7 +55,7 @@ class Contact extends Component {
             firstname: '',
             lastname: '',
             telnum: '',
-            email
+            email: ''
         }
 
         if (this.state.touched.firstname && firstname.length < 3){
@@ -199,6 +199,15 @@ class Contact extends Component {
                                         <option>Tel.</option>
                                         <option>Email</option>
                                     </Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="message" md={2}>Your Feedback</Label>
+                                <Col md={10}>
+                                    <Input type="textarea" id="message" name="message"
+                                        rows="12"
+                                        value={this.state.message}
+                                        onChange={this.handleInputChange}></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
