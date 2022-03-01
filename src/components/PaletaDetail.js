@@ -26,8 +26,8 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.paletaId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -114,7 +114,7 @@ function RenderPaleta({paleta}) {
     }
 }
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, paletaId}){
     if(comments != null){
 
         const comm = comments.map(comment => {
@@ -134,7 +134,7 @@ function RenderComments({comments}){
             <div>
                 <h4>Comments</h4>
                 {comm}
-                <CommentForm />
+                <CommentForm paletaId={paletaId} addComment={addComment}/>
             </div>
         );
 
@@ -168,7 +168,9 @@ const PaletaDetail = (props) => {
                     </div>
                     
                     <div className="col-12 col-md-5 m-1">                       
-                       <RenderComments comments={props.comments} />
+                       <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        paletaId={props.paleta.id} />
                     </div>
                     
                 </div>
