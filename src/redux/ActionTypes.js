@@ -1,1 +1,4 @@
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const PALETAS_LOADING = 'PALETAS_LOADING';
+export const PALETAS_FAILED = 'PALETAS_FAILED';
+export const ADD_PALETAS = 'ADD_PALETAS';

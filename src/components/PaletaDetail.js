@@ -2,6 +2,7 @@ import {React, Component} from 'react'
 import { Card, CardImg, CardTitle, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -49,7 +50,7 @@ class CommentForm extends Component {
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
-                                        <option value="5" select="selected">5</option>    
+                                        <option value="5">5</option>    
                                     </Control.select>
                                 </Col>
                             </Row>
@@ -147,7 +148,24 @@ function RenderComments({comments, addComment, paletaId}){
 }
 
 const PaletaDetail = (props) => {
-    
+    if(props.isLoading) {
+        return(
+            <div className="container">
+                <div classname="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if(props.errMess) {
+        return(
+            <div className="container">
+                <div classname="row">
+                   <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
     if(props.paleta != null){
 
         return(

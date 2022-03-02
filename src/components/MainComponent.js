@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchPaletas } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -20,7 +20,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (paletaId, rating, author, comment) => dispatch(addComment(paletaId, rating, author, comment))
+  addComment: (paletaId, rating, author, comment) => dispatch(addComment(paletaId, rating, author, comment)),
+  fetchPaletas: () => {dispatch(fetchPaletas())}
 })
 
 
@@ -31,12 +32,18 @@ class Main extends Component {
 
   }
 
+  componentDidMount() {
+    this.props.fetchPaletas();
+  }
+
 
   render() {
 
     const PaletaWithId = ({match}) => {
       return(
-        <PaletaDetail paleta={this.props.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
+        <PaletaDetail paleta={this.props.paletas.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
+        isLoading={this.props.paletas.isLoading}
+        errMess={this.props.paletas.errMess}
         comments={this.props.comments.filter(comment => comment.paletaId === parseInt(match.params.paletaId,10))}
         addComment={this.props.addComment} />
       );
@@ -44,7 +51,9 @@ class Main extends Component {
 
     const HomePage = () => {
       return(
-        <Home paleta={this.props.paletas.filter(paleta => paleta.featured)[0]}
+        <Home paleta={this.props.paletas.paletas.filter(paleta => paleta.featured)[0]}
+          paletasLoading={this.props.paletas.isLoading}
+          paletasErrMess={this.props.paletas.errMess}
           promotion={this.props.promotions.filter(promotion => promotion.featured)[0]}
           leader={this.props.leaders.filter(leader => leader.featured)[0]}
         />
