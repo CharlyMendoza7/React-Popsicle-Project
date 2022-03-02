@@ -22,7 +22,7 @@ const Menu = (props) => {
     const menu = props.paletas.paletas.map(paleta =>{
         return(
             <div key={paleta.id} className="col-12 col-md-5 m-1">   
-                <RenderMenuItem paleta={paleta} onClick={props.onClick} />
+                <RenderMenuItem paleta={paleta} />
             </div>
         );
     })
@@ -36,11 +36,11 @@ const Menu = (props) => {
             </div>
         );
     }
-    else if(props.errMess) {
+    else if(props.paletas.errMess) {
         return(
             <div className="container">
                 <div classname="row">
-                   <h4>{props.errMess}</h4>
+                   <h4>{props.paletas.errMess}</h4>
                 </div>
             </div>
         );

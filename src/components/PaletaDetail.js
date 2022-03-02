@@ -29,7 +29,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.paletaId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.paletaId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -100,13 +100,15 @@ class CommentForm extends Component {
 function RenderPaleta({paleta}) {
     if (paleta != null) {
         return(
-            <Card>
-                <CardImg width="100%" src={baseUrl + paleta.image} alt={paleta.name} />
-                <CardBody>
-                    <CardTitle>{paleta.name}</CardTitle>
-                    <CardText>{paleta.description}</CardText>
-                </CardBody>
-            </Card>
+            <div className="col-12 col-md-5 m-1">
+                <Card>
+                    <CardImg width="100%" src={baseUrl + paleta.image} alt={paleta.name} />
+                    <CardBody>
+                        <CardTitle>{paleta.name}</CardTitle>
+                        <CardText>{paleta.description}</CardText>
+                    </CardBody>
+                </Card>
+            </div>
         );
     }
     else {
@@ -116,37 +118,34 @@ function RenderPaleta({paleta}) {
     }
 }
 
-function RenderComments({comments, addComment, paletaId}){
-    if(comments != null){
-
-        const comm = comments.map(comment => {
-            return(
-                <div key={comment.id} className="list-unstyled">
-                    <li className="mb-4">
-                        {comment.comment}
-                    </li>
-                    <li className="mb-4">
-                        --{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-                    </li>
-                </div>
-            );
-        });
-
+function RenderComments({comments, postComment, paletaId}){
+    if(comments != null) {
         return(
-            <div>
+            <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
-                {comm}
-                <CommentForm paletaId={paletaId} addComment={addComment}/>
+                <ul className="list-unstyled">
+                        {comments.map((comment) => {
+                            return(
+                                    <li key={comment.id}>
+                                    <p>{comment.comment}</p>
+                                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p>
+                                    </li>
+                            );
+                        })}
+                </ul>
+                <CommentForm paletaId={paletaId} postComment={postComment} />
             </div>
         );
 
     }
-    else {
+    else{
         return(
             <div />
         );
     }
+
 }
+
 
 const PaletaDetail = (props) => {
     if(props.isLoading) {
@@ -182,16 +181,11 @@ const PaletaDetail = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderPaleta paleta={props.paleta} />
-                    </div>
-                    
-                    <div className="col-12 col-md-5 m-1">                       
-                       <RenderComments comments={props.comments}
-                        addComment={props.addComment}
-                        paletaId={props.paleta.id} />
-                    </div>
-                    
+                    <RenderPaleta paleta={props.paleta} />
+                    <RenderComments comments={props.comments}
+                    postComment={props.postComment}
+                    paletaId={props.paleta.id}
+                    />
                 </div>
             </div>
         );

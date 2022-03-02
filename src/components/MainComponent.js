@@ -8,8 +8,9 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchComments, fetchPaletas, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchComments, fetchPaletas, fetchPromos } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
   return {
@@ -20,13 +21,13 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addComment: (paletaId, rating, author, comment) => dispatch(addComment(paletaId, rating, author, comment)),
+const mapDispatchToProps = dispatch => ({
+  postComment: (paletaId, rating, author, comment) => dispatch(postComment(paletaId, rating, author, comment)),
   fetchPaletas: () => {dispatch(fetchPaletas())},
-  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
+  resetFeedbackForm: () => {dispatch(actions.reset('feedback'))},
   fetchComments: () => {dispatch(fetchComments())},
   fetchPromos: () => {dispatch(fetchPromos())},
-})
+});
 
 
 class Main extends Component {
@@ -47,12 +48,13 @@ class Main extends Component {
 
     const PaletaWithId = ({match}) => {
       return(
-        <PaletaDetail paleta={this.props.paletas.paletas.filter(paleta => paleta.id === parseInt(match.params.paletaId,10))[0]}
+        <PaletaDetail paleta={this.props.paletas.paletas.filter((paleta) => paleta.id === parseInt(match.params.paletaId,10))[0]}
         isLoading={this.props.paletas.isLoading}
-        errMess={this.props.paletas.errMess}
-        comments={this.props.comments.comments.filter(comment => comment.paletaId === parseInt(match.params.paletaId,10))}
+        errMess={this.props.paletas.errMess} 
+        comments={this.props.comments.comments.filter((comment) => comment.paletaId === parseInt(match.params.paletaId,10))}
         commentsErrMess={this.props.comments.errMess}
-        addComment={this.props.addComment} />
+        postComment={this.props.postComment}
+      />
       );
     }
 
@@ -71,14 +73,18 @@ class Main extends Component {
     return(
       <div>
         <Header />
-        <Switch>
-          <Route path='/home' component={HomePage} />
-          <Route exact path='/menu' component={() => <Menu paletas={this.props.paletas} />} />
-          <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
-          <Route path='/menu/:paletaId' component={PaletaWithId} />
-          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-          <Redirect to='/home' />
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+            <Switch location={this.props.location}>
+              <Route path='/home' component={HomePage} />
+              <Route exact path='/menu' component={() => <Menu paletas={this.props.paletas} />} />
+              <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
+              <Route path='/menu/:paletaId' component={PaletaWithId} />
+              <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+              <Redirect to='/home' />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );
