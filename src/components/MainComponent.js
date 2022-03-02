@@ -9,6 +9,7 @@ import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addComment, fetchPaletas } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => {
   return {
@@ -21,7 +22,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
   addComment: (paletaId, rating, author, comment) => dispatch(addComment(paletaId, rating, author, comment)),
-  fetchPaletas: () => {dispatch(fetchPaletas())}
+  fetchPaletas: () => {dispatch(fetchPaletas())},
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 })
 
 
@@ -67,7 +69,7 @@ class Main extends Component {
           <Route exact path='/menu' component={() => <Menu paletas={this.props.paletas} />} />
           <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
           <Route path='/menu/:paletaId' component={PaletaWithId} />
-          <Route exact path='/contactus' component={Contact} />
+          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
           <Redirect to='/home' />
         </Switch>
         <Footer />
