@@ -3,6 +3,7 @@ import { Card, CardImg, CardTitle, CardText, CardBody, Breadcrumb, BreadcrumbIte
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -100,7 +101,7 @@ function RenderPaleta({paleta}) {
     if (paleta != null) {
         return(
             <Card>
-                <CardImg width="100%" src={paleta.image} alt={paleta.name} />
+                <CardImg width="100%" src={baseUrl + paleta.image} alt={paleta.name} />
                 <CardBody>
                     <CardTitle>{paleta.name}</CardTitle>
                     <CardText>{paleta.description}</CardText>
